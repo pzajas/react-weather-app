@@ -1,0 +1,71 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint-config-prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".svg"],
+        "moduleDirectory": ["node_modules", "src"]
+      }
+    }
+  },
+  "plugins": ["simple-import-sort"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/import/no-unresolved": "off",
+        "@typescript-eslint/no-explicit-any": "warning",
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error"
+      }
+    }
+  ],
+  "rules": {
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // `react` first, `next` second, then packages starting with a character
+          ["^react$", "^next", "^[a-z]"],
+          // Packages starting with `@`
+          ["^@"],
+          // Packages starting with `~`
+          ["^~"],
+          // Imports starting with `../`
+          ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+          // Imports starting with `./`
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+          // Style imports
+          ["^.+\\.s?css$"],
+          // Side effect imports
+          ["^\\u0000"]
+        ]
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+
+    "import/no-unresolved": [0, { "caseSensitive": false }],
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-explicit-any": "warn"
+  }
+}
