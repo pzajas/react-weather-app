@@ -3,12 +3,12 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { styled } from 'styled-components'
 import { FetchDataForm } from '@components/forms/FetchDataForm'
-import { PrimaryNavbar } from '@components/navbars/PrimaryNavbar'
 import { PiCaretDownBold, PiCaretUpBold } from 'react-icons/pi'
 import { FiSun } from 'react-icons/fi'
 import HourlyTemperatureSection from '@components/sections/HourlyTemperatureSection'
 import DailyTemperatureSection from '@components/sections/DailyTemperatureSection'
 import WeatherConditions from '@components/sections/WeatherConditions'
+import { WeatherNavbar } from '@components/navbars/WeatherNavbar'
 
 export const LocationWeather = () => {
   const [cityWeatherData, setCityWeatherData] = useState()
@@ -34,9 +34,9 @@ export const LocationWeather = () => {
 
   return (
     <LocationWeatherContainer>
-      <PrimaryNavbar>
+      <WeatherNavbar>
         <FetchDataForm setLocationList={'ppp'} />
-      </PrimaryNavbar>
+      </WeatherNavbar>
 
       <StyledTemperatureContainer>
         <StyledLocationName>{cityWeatherData?.location.name}</StyledLocationName>
