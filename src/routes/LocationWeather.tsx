@@ -8,18 +8,17 @@ import { PiCaretDownBold, PiCaretUpBold } from 'react-icons/pi'
 import { FiSun } from 'react-icons/fi'
 import HourlyTemperatureSection from '@components/sections/HourlyTemperatureSection'
 import DailyTemperatureSection from '@components/sections/DailyTemperatureSection'
+import WeatherConditions from '@components/sections/WeatherConditions'
 
 export const LocationWeather = () => {
   const [cityWeatherData, setCityWeatherData] = useState()
   const { location } = useParams()
 
-  const API_KEY = '795e1e963d1887c1d98f97b6b45e0eea'
-
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         const response = await axios.get(
-          `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`
+          `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${location}`
         )
 
         setCityWeatherData(response.data)
@@ -40,39 +39,43 @@ export const LocationWeather = () => {
       </PrimaryNavbar>
 
       <StyledTemperatureContainer>
-        <StyledLocationName>{cityWeatherData?.name}</StyledLocationName>
+        <StyledLocationName>{cityWeatherData?.location.name}</StyledLocationName>
 
         <StyledMinMaxTemperature>
-          <StyledTemperature>{parseInt(cityWeatherData?.main.temp)}&#176;</StyledTemperature>
+          <StyledTemperature>{parseInt(cityWeatherData?.current?.temp_c)}&#176;</StyledTemperature>
 
           <div style={{ display: 'flex', gap: '10px' }}>
-            <div>
-              <PiCaretUpBold />
-              {parseInt(cityWeatherData?.main.temp_max)}&#176;
+            <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginRight: '0.5rem' }}>
+                <PiCaretUpBold />
+              </div>
+              <div>{parseInt(cityWeatherData?.forecast?.forecastday[0]?.day.maxtemp_c)}&#176;</div>
             </div>
-            <div>
-              <PiCaretDownBold />
-              {parseInt(cityWeatherData?.main.temp_min)}&#176;
+            <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginRight: '0.5rem' }}>
+                <PiCaretDownBold />
+              </div>
+              <div>{parseInt(cityWeatherData?.forecast?.forecastday[0]?.day.mintemp_c)}&#176;</div>
             </div>
           </div>
         </StyledMinMaxTemperature>
 
         <StyledWeatherFeeling>
-          <div>{cityWeatherData?.weather[0].main}</div>
-          <div>{parseInt(cityWeatherData?.main.feels_like)}</div>
+          <div style={{ fontSize: '15px' }}>{cityWeatherData?.current?.condition.text}</div>
+          <div>Feels like {parseInt(cityWeatherData?.current?.feelslike_c)}&#176;</div>
         </StyledWeatherFeeling>
-
-        <StyledSunIcon />
       </StyledTemperatureContainer>
 
       <HourlyTemperatureSection location={location} />
-      <DailyTemperatureSection cityWeatherData={cityWeatherData} />
+      <DailyTemperatureSection location={location} />
+      <WeatherConditions cityWeatherData={cityWeatherData} />
     </LocationWeatherContainer>
   )
 }
 
 const LocationWeatherContainer = styled.div`
   background: linear-gradient(to top, #ef7b14, #eda924);
+  height: auto;
 `
 
 const StyledLocationName = styled.div`
@@ -112,23 +115,4 @@ const StyledWeatherFeeling = styled.div`
   flex-direction: column;
   gap: 1rem;
   font-size: 1rem;
-`
-
-const StyledSunIcon = styled(FiSun)`
-  grid-column: 2;
-  grid-row: 1 / span 3;
-  justify-self: flex-end; /* Align to the right edge */
-  font-size: 25rem;
-  padding: 4rem;
-  background-color: #f09e2e;
-  border-radius: 100rem;
-
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-  transform-origin: bottom center;
-  transform: translateY(50%);
-  rotate: -90deg;
-
-  position: relative;
-  right: -16rem; /* Adjust this value to position the sun icon */
-  top: -12rem;
 `

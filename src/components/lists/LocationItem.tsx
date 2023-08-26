@@ -16,7 +16,7 @@ const LocationListItem = ({ location, country, temperature, icon }: ILocationLis
         <StyledWeatherDataContainer>
           <StyledWeatherDataWrapper>
             {temperature}&#176;
-            <StyledWeatherIcon src={`https://openweathermap.org/img/wn/${icon}@2x.png`} alt="Weather Icon" />
+            <StyledWeatherIcon src={icon} alt="Weather Icon" />
           </StyledWeatherDataWrapper>
           <StyledLocationDataWrapper>
             <div style={{ fontSize: '16px' }}>{location}</div>
