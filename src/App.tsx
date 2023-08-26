@@ -1,23 +1,21 @@
 import { FetchDataForm } from '@components/forms/FetchDataForm'
 import { LocationList } from '@components/lists/LocationList'
-import { PrimaryNavbar } from '@components/navbars/PrimaryNavbar'
+import { WeatherNavbar } from '@components/navbars/WeatherNavbar'
 import { useState } from 'react'
 import { styled } from 'styled-components'
 
-const WeatherComponent = () => {
+export const App = () => {
   const [locationList, setLocationList] = useState([])
 
   return (
     <GradientBackground>
-      <PrimaryNavbar>
+      <WeatherNavbar>
         <FetchDataForm setLocationList={setLocationList} />
-      </PrimaryNavbar>
+      </WeatherNavbar>
       <LocationList locationList={locationList} />
     </GradientBackground>
   )
 }
-
-export default WeatherComponent
 
 const GradientBackground = styled.div`
   width: 100%;
