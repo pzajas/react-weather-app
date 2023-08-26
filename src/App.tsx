@@ -1,6 +1,7 @@
 import { FetchDataForm } from '@components/forms/FetchDataForm'
 import { LocationList } from '@components/lists/LocationList'
 import { PrimaryNavbar } from '@components/navbars/PrimaryNavbar'
+import DailyTemperatureSection from '@components/sections/DailyTemperatureSection'
 import { useState } from 'react'
 import { styled } from 'styled-components'
 

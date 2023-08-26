@@ -7,6 +7,7 @@ import { PrimaryNavbar } from '@components/navbars/PrimaryNavbar'
 import { PiCaretDownBold, PiCaretUpBold } from 'react-icons/pi'
 import { FiSun } from 'react-icons/fi'
 import HourlyTemperatureSection from '@components/sections/HourlyTemperatureSection'
+import DailyTemperatureSection from '@components/sections/DailyTemperatureSection'
 
 export const LocationWeather = () => {
   const [cityWeatherData, setCityWeatherData] = useState()
@@ -17,11 +18,11 @@ export const LocationWeather = () => {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const data = await axios.get(
+        const response = await axios.get(
           `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`
         )
 
-        setCityWeatherData(data.data)
+        setCityWeatherData(response.data)
       } catch (error) {
         console.error('Error fetching weather data:', error)
       }
@@ -65,6 +66,7 @@ export const LocationWeather = () => {
       </StyledTemperatureContainer>
 
       <HourlyTemperatureSection location={location} />
+      <DailyTemperatureSection cityWeatherData={cityWeatherData} />
     </LocationWeatherContainer>
   )
 }
