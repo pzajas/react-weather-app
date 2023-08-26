@@ -50,6 +50,7 @@ export default defineConfig({
       '@components': '/src/components',
       '@elements': '/src/elements',
       '@redux': '/src/redux',
+      '@helpers': '/src/helpers',
     },
   },
   plugins: [react(), VitePWA(manifestForPlugIn)],

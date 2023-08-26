@@ -23,7 +23,8 @@
     "paths": {
       "@components/*": ["components/*"],
       "@elements/*": ["elements/*"],
-      "@redux/*": ["redux/*"]
+      "@redux/*": ["redux/*"],
+      "@helpers/*": ["helpers/*"]
     }
   },
   "include": ["src", "vite.config.ts"],
