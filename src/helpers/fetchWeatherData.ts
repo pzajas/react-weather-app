@@ -1,23 +1,19 @@
 import axios from 'axios'
 
 export const fetchData = async (userInput: string) => {
-  const options = {
-    method: 'GET',
-    url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-    params: { q: userInput },
-    headers: {
-      'X-RapidAPI-Key': 'f21a21d23dmsh8222d459ad91e21p1d14b5jsn7115de4be286',
-      'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com',
-    },
-  }
-
+  const API_KEY = '795e1e963d1887c1d98f97b6b45e0eea'
   try {
-    const response = await axios(options)
+    const response = await axios.get(
+      `http://api.openweathermap.org/data/2.5/weather?q=${userInput}&units=metric&appid=${API_KEY}`
+    )
+
+    console.log(response.data)
+
     const newLocationData = {
-      location: response.data.location.name,
-      country: response.data.location.country,
-      temperature: response.data.current.feelslike_c,
-      weatherIcon: response.data.current.condition.icon,
+      location: response.data.name,
+      country: response.data.sys.country,
+      temperature: response.data.main.temp,
+      weatherIcon: response.data.weather[0].icon,
     }
     return newLocationData
   } catch (error) {
