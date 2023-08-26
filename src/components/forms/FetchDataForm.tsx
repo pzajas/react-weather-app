@@ -20,6 +20,7 @@ export const FetchDataForm = ({ setLocationList }) => {
       console.log(error)
     }
   }
+  console.log(weatherData)
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>

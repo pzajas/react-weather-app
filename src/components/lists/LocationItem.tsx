@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { styled } from 'styled-components'
 
 interface ILocationListItem {
@@ -8,19 +9,22 @@ interface ILocationListItem {
 }
 
 const LocationListItem = ({ location, country, temperature, icon }: ILocationListItem) => {
+  console.log(icon)
   return (
-    <StyledWeatherDataList>
-      <StyledWeatherDataContainer>
-        <StyledWeatherDataWrapper>
-          {temperature}&#176;
-          <StyledWeatherIcon src={icon} alt="Weather Icon" />
-        </StyledWeatherDataWrapper>
-        <StyledLocationDataWrapper>
-          <div style={{ fontSize: '16px' }}>{location}</div>
-          <div style={{ fontSize: '12px', color: 'lightgrey' }}>{country}</div>
-        </StyledLocationDataWrapper>
-      </StyledWeatherDataContainer>
-    </StyledWeatherDataList>
+    <Link to={`/contacts/${location}`}>
+      <StyledWeatherDataList>
+        <StyledWeatherDataContainer>
+          <StyledWeatherDataWrapper>
+            {temperature}&#176;
+            <StyledWeatherIcon src={icon} alt="Weather Icon" />
+          </StyledWeatherDataWrapper>
+          <StyledLocationDataWrapper>
+            <div style={{ fontSize: '16px' }}>{location}</div>
+            <div style={{ fontSize: '12px', color: 'lightgrey' }}>{country}</div>
+          </StyledLocationDataWrapper>
+        </StyledWeatherDataContainer>
+      </StyledWeatherDataList>
+    </Link>
   )
 }
 
@@ -58,6 +62,6 @@ const StyledLocationDataWrapper = styled.div`
 `
 
 const StyledWeatherIcon = styled.img`
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
 `

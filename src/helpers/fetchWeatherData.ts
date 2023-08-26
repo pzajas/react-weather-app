@@ -1,27 +1,28 @@
 import axios from 'axios'
 
 export const fetchData = async (userInput: string) => {
-  const options = {
-    method: 'GET',
-    url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-    params: { q: userInput },
-    headers: {
-      'X-RapidAPI-Key': 'f21a21d23dmsh8222d459ad91e21p1d14b5jsn7115de4be286',
-      'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com',
-    },
-  }
-
+  const API_KEY = '795e1e963d1887c1d98f97b6b45e0eea'
   try {
-    const response = await axios(options)
+    const response = await axios.get(
+      `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${userInput}`
+    )
+
+    console.log(response)
+
     const newLocationData = {
       location: response.data.location.name,
       country: response.data.location.country,
-      temperature: response.data.current.feelslike_c,
+      temperature: response.data.current.temp_c,
       weatherIcon: response.data.current.condition.icon,
     }
+
+    console.log(newLocationData)
+
     return newLocationData
   } catch (error) {
     console.error('Error fetching weather data:', error)
     throw error
   }
 }
+
+// key 4f223485bbd542168f1154529232608
