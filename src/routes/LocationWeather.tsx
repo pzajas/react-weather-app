@@ -6,6 +6,7 @@ import { FetchDataForm } from '@components/forms/FetchDataForm'
 import { PrimaryNavbar } from '@components/navbars/PrimaryNavbar'
 import { PiCaretDownBold, PiCaretUpBold } from 'react-icons/pi'
 import { FiSun } from 'react-icons/fi'
+import HourlyTemperatureSection from '@components/sections/HourlyTemperatureSection'
 
 export const LocationWeather = () => {
   const [cityWeatherData, setCityWeatherData] = useState()
@@ -62,12 +63,13 @@ export const LocationWeather = () => {
 
         <StyledSunIcon />
       </StyledTemperatureContainer>
+
+      <HourlyTemperatureSection location={location} />
     </LocationWeatherContainer>
   )
 }
 
 const LocationWeatherContainer = styled.div`
-  /* width: 100vh; */
   background: linear-gradient(to top, #ef7b14, #eda924);
 `
 
@@ -91,6 +93,7 @@ const StyledTemperature = styled.div`
   flex-direction: column;
   gap: 1rem;
   font-size: 4rem;
+  font-weight: 600;
 `
 
 const StyledMinMaxTemperature = styled.div`
