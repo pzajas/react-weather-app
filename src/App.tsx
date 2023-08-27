@@ -3,9 +3,10 @@ import { LocationList } from '@components/lists/LocationList'
 import { WeatherNavbar } from '@components/navbars/WeatherNavbar'
 import { useState } from 'react'
 import { styled } from 'styled-components'
+import { LocationData } from 'typescript/interfaces'
 
 export const App = () => {
-  const [locationList, setLocationList] = useState([])
+  const [locationList, setLocationList] = useState<LocationData[]>([])
 
   return (
     <GradientBackground>

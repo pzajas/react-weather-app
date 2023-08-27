@@ -1,10 +1,19 @@
 import styled from 'styled-components'
-import LocationListItem from './LocationItem'
+import { LocationListItem } from './LocationItem'
 
-export const LocationList = ({ locationList }) => {
+interface ILocationItem {
+  location: string
+  country: string
+  temperature: number
+  weatherIcon: string
+}
+
+export const LocationList = ({ locationList }: { locationList: ILocationItem[] }) => {
+  console.log(locationList)
+
   return (
     <GridContainer>
-      {locationList.map((item) => (
+      {locationList.map((item: ILocationItem) => (
         <LocationListItem
           key={item.location}
           location={item.location}

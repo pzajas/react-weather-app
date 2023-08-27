@@ -1,27 +1,10 @@
 import { styled } from 'styled-components'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { ICityWeatherData } from 'typescript/interfaces'
 
-export const DailyTemperatureSection = ({ location }) => {
-  const [dailyWeatherData, setDailyWeatherData] = useState()
+export const DailyTemperatureSection = ({ cityWeatherData }: { cityWeatherData: ICityWeatherData }) => {
+  console.log(cityWeatherData)
 
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${location}&days=8`
-        )
-
-        setDailyWeatherData(response?.data)
-      } catch (error) {
-        console.error('Error fetching weather data:', error)
-      }
-    }
-
-    fetchWeather()
-  }, [location])
 
   return (
     <StyledDailyTemperatureSection>
@@ -29,21 +12,19 @@ export const DailyTemperatureSection = ({ location }) => {
         <StyledSingleDayTemperature key={day}>
           <p>{day}</p>
           <StyledIconAndRainPercent>
-            <img src={dailyWeatherData?.forecast?.forecastday[index + 1]?.day?.condition?.icon} alt="Weather Icon" />
+            <img src={cityWeatherData?.forecast?.forecastday[index + 1]?.day?.condition?.icon} alt="Weather Icon" />
             <div>
-              {dailyWeatherData?.forecast?.forecastday[index + 1]?.day?.condition?.text.includes('rain')
-                ? `${dailyWeatherData?.forecast?.forecastday[index + 1]?.day?.daily_chance_of_rain} %`
+              {cityWeatherData?.forecast?.forecastday[index + 1]?.day?.condition?.text.includes('rain')
+                ? `${cityWeatherData?.forecast?.forecastday[index + 1]?.day?.daily_chance_of_rain} %`
                 : null}
             </div>
           </StyledIconAndRainPercent>
 
           <StyledTemperatureContainer>
             <div className="temperature" style={{ fontWeight: 'bold' }}>
-              {parseInt(dailyWeatherData?.forecast?.forecastday[index]?.day?.avgtemp_c)}
+              {parseInt(cityWeatherData?.forecast?.forecastday[index]?.day?.maxtemp_c)}
             </div>
-            <div className="temperature">
-              {parseInt(dailyWeatherData?.forecast?.forecastday[index]?.day?.mintemp_c)}
-            </div>
+            <div className="temperature">{parseInt(cityWeatherData?.forecast?.forecastday[index]?.day?.mintemp_c)}</div>
           </StyledTemperatureContainer>
         </StyledSingleDayTemperature>
       ))}

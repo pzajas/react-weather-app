@@ -7,14 +7,15 @@ import { DailyTemperatureSection } from '@components/sections/DailyTemperatureSe
 import { WeatherConditions } from '@components/sections/WeatherConditions'
 import { WeatherNavbar } from '@components/navbars/WeatherNavbar'
 import { TemperatureText } from '@components/texts/TemperatureText'
-import { formatDate } from '@helpers/createDate'
+import { CreateDate } from '@helpers/CreateDate'
 import { TemperatureSection } from '@components/sections/LocationTemperatureSection'
+import { ICityWeatherData } from 'typescript/interfaces'
 
 export const LocationWeather = () => {
-  const [cityWeatherData, setCityWeatherData] = useState()
+  const [cityWeatherData, setCityWeatherData] = useState<ICityWeatherData | undefined>(undefined)
   const weatherLocation = cityWeatherData?.location
   const weatherCurrent = cityWeatherData?.current
-  const weatherForecast = cityWeatherData?.forecast?.forecastday[0]
+  const weatherForecast = cityWeatherData?.forecast
 
   const { location } = useParams()
   const date = new Date()
@@ -23,7 +24,7 @@ export const LocationWeather = () => {
     const fetchWeather = async () => {
       try {
         const response = await axios.get(
-          `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${location}`
+          `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${location}&days=8`
         )
 
         setCityWeatherData(response.data)
@@ -38,18 +39,17 @@ export const LocationWeather = () => {
   return (
     <LocationWeatherContainer>
       <WeatherNavbar>
-        {formatDate(date)}
+        {CreateDate(date)}
         <TemperatureText text="C" fontSize="20px" fontWeight="600" />
       </WeatherNavbar>
-
       <TemperatureSection
         weatherLocation={weatherLocation}
         weatherCurrent={weatherCurrent}
         weatherForecast={weatherForecast}
       />
-      <HourlyTemperatureSection weatherForecast={weatherForecast} />
-      <DailyTemperatureSection location={location} />
-      <WeatherConditions cityWeatherData={cityWeatherData} />
+      {cityWeatherData && <HourlyTemperatureSection cityWeatherData={cityWeatherData} />}
+      {cityWeatherData && <DailyTemperatureSection cityWeatherData={cityWeatherData} />}
+      {cityWeatherData && <WeatherConditions cityWeatherData={cityWeatherData} />}
     </LocationWeatherContainer>
   )
 }

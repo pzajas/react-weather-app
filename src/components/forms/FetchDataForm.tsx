@@ -1,31 +1,37 @@
+import React from 'react'
 import { FetchDataButton } from '@components/buttons/FetchDataButton'
-import { useForm, Controller } from 'react-hook-form'
-import { useState } from 'react'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { fetchData } from '@helpers/fetchWeatherData'
-import { styled } from 'styled-components'
+import { fetchInitialCityWeatherData } from '@helpers/fetchInitialCityWeatherData'
+import styled from 'styled-components'
+import { LocationData } from 'typescript/interfaces'
 
-export const FetchDataForm = ({ setLocationList }) => {
-  const [weatherData, setWeatherData] = useState(null)
-  const { control, handleSubmit, reset } = useForm()
+interface FormData {
+  city: string
+}
 
-  const onSubmit = async (data) => {
-    const userInput = data.userInput
+interface FetchDataFormProps {
+  setLocationList: React.Dispatch<React.SetStateAction<LocationData[]>>
+}
+
+export const FetchDataForm: React.FC<FetchDataFormProps> = ({ setLocationList }) => {
+  const { control, handleSubmit, reset } = useForm<FormData>()
+
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+    const city = formData.city
     try {
-      const newLocationData = await fetchData(userInput)
-      setWeatherData(newLocationData)
+      const newLocationData: LocationData = await fetchInitialCityWeatherData(city)
       setLocationList((prevList) => [...prevList, newLocationData])
       reset()
     } catch (error) {
       console.log(error)
     }
   }
-  console.log(weatherData)
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Controller
-        name="userInput"
+        name="city" // Change to 'city'
         control={control}
         defaultValue=""
         render={({ field }) => <Input type="text" placeholder="Add a city" {...field} />}

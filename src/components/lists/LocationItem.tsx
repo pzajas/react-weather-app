@@ -8,7 +8,7 @@ interface ILocationListItem {
   icon: any
 }
 
-const LocationListItem = ({ location, country, temperature, icon }: ILocationListItem) => {
+export const LocationListItem = ({ location, country, temperature, icon }: ILocationListItem) => {
   return (
     <StyledLink to={`/contacts/${location}`}>
       <StyledWeatherDataList>
@@ -26,8 +26,6 @@ const LocationListItem = ({ location, country, temperature, icon }: ILocationLis
     </StyledLink>
   )
 }
-
-export default LocationListItem
 
 const commonTextStyle = css`
   font-family: 'Poppins';

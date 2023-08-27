@@ -1,6 +1,11 @@
 import { styled } from 'styled-components'
 
-export const WeatherConditionCard = ({ title, content }) => {
+interface WeatherConditionCardProps {
+  title: string
+  content: React.ReactNode
+}
+
+export const WeatherConditionCard = ({ title, content }: WeatherConditionCardProps) => {
   return (
     <GridItem>
       <p>{title}</p>
