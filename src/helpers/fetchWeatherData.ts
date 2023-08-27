@@ -1,11 +1,9 @@
 import axios from 'axios'
 
 export const fetchData = async (userInput: string) => {
-  const API_KEY = '795e1e963d1887c1d98f97b6b45e0eea'
+  const API_KEY = '4f223485bbd542168f1154529232608'
   try {
-    const response = await axios.get(
-      `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${userInput}`
-    )
+    const response = await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${userInput}`)
 
     console.log(response)
 
@@ -17,12 +15,9 @@ export const fetchData = async (userInput: string) => {
     }
 
     console.log(newLocationData)
-
     return newLocationData
   } catch (error) {
     console.error('Error fetching weather data:', error)
     throw error
   }
 }
-
-// key 4f223485bbd542168f1154529232608
