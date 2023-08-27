@@ -1,7 +1,8 @@
 import { WeatherConditionCard } from '@components/cards/WeatherConditionCard'
 import { styled } from 'styled-components'
+import { ICityWeatherData } from 'typescript/interfaces'
 
-export const WeatherConditions = ({ cityWeatherData }) => {
+export const WeatherConditions = ({ cityWeatherData }: { cityWeatherData: ICityWeatherData }) => {
   const sunriseTime = cityWeatherData?.forecast?.forecastday[0]?.astro.sunrise
   const sunsetTime = cityWeatherData?.forecast?.forecastday[0]?.astro.sunset
   const precipitation = cityWeatherData?.forecast?.forecastday[0]?.day.daily_chance_of_rain

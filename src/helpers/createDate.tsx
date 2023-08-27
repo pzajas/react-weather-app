@@ -1,6 +1,6 @@
 import { styled } from 'styled-components'
 
-export const formatDate = (date: any) => {
+export const CreateDate = (date: any) => {
   const options = { weekday: 'long', month: 'long', day: 'numeric' }
   return <StyledCurrentDate>{date.toLocaleDateString('en-US', options)}</StyledCurrentDate>
 }

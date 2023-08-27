@@ -1,15 +1,21 @@
 import { styled } from 'styled-components'
 import { useEffect, useState, useRef } from 'react'
+import { ICityWeatherData } from 'typescript/interfaces'
 
-export const HourlyTemperatureSection = ({ weatherForecast }) => {
-  const [hourlyTempData, setHourlyTempData] = useState([])
-  const nowRef = useRef(null)
+interface HourlyTempData {
+  time: string
+  temp_c: string
+}
 
-  useEffect(() => {
-    setHourlyTempData(weatherForecast?.hour)
-  }, [weatherForecast])
+export const HourlyTemperatureSection = ({ cityWeatherData }: { cityWeatherData: ICityWeatherData }) => {
+  const [hourlyTempData, setHourlyTempData] = useState<HourlyTempData[]>([])
 
   const currentHour = new Date().getHours()
+  const nowRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    setHourlyTempData(cityWeatherData?.forecast?.forecastday[0]?.hour || [])
+  }, [cityWeatherData])
 
   useEffect(() => {
     if (nowRef.current) {
@@ -26,7 +32,7 @@ export const HourlyTemperatureSection = ({ weatherForecast }) => {
         {hourlyTempData?.map((day) => (
           <StyledHourlyTemperatureItem
             key={day.time}
-            ref={day.time === `2023-08-26 ${currentHour}:00` ? nowRef : null}
+            ref={day.time === `2023-08-26 ${currentHour}:00` ? nowRef : undefined}
             isNow={formatTime(day.time, currentHour) === 'NOW'}
           >
             <p>{formatTime(day.time, currentHour)}</p>
@@ -38,7 +44,7 @@ export const HourlyTemperatureSection = ({ weatherForecast }) => {
   )
 }
 
-const formatTime = (time, currentHour) => {
+const formatTime = (time: string, currentHour: number) => {
   const hour = parseInt(time.substring(11, 13))
   const period = hour >= 12 ? 'PM' : 'AM'
 
@@ -67,7 +73,7 @@ const ScrollableContainer = styled.div`
   gap: 1rem;
 `
 
-const StyledHourlyTemperatureItem = styled.div`
+const StyledHourlyTemperatureItem = styled.div<{ isNow: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

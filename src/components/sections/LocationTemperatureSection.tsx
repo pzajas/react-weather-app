@@ -13,11 +13,11 @@ export const TemperatureSection = ({ weatherLocation, weatherCurrent, weatherFor
           <IconWrapper>
             <PiCaretUpBold />
           </IconWrapper>
-          <TemperatureText temperature={weatherForecast?.day.maxtemp_c} fontSize="12px" />
+          <TemperatureText temperature={weatherForecast?.forecastday[0]?.day.maxtemp_c} fontSize="12px" />
           <IconWrapper>
             <PiCaretDownBold />
           </IconWrapper>
-          <TemperatureText temperature={weatherForecast?.day.mintemp_c} fontSize="12px" />
+          <TemperatureText temperature={weatherForecast?.forecastday[0].day.mintemp_c} fontSize="12px" />
         </TemperatureWrapper>
       </StyledMinMaxTemperature>
       <SunIconContainer>
