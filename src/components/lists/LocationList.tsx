@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { LocationListItem } from './LocationItem'
+import { useSelector } from 'react-redux'
 
 interface ILocationItem {
   location: string
@@ -8,24 +9,13 @@ interface ILocationItem {
   weatherIcon: string
 }
 
-export const LocationList = ({ locationList, setLocationList }: { locationList: ILocationItem[] }) => {
-  const handleDelete = (locationToDelete: string) => {
-    const updatedList = locationList.filter((item) => item.location !== locationToDelete)
-    setLocationList(updatedList)
-  }
+export const LocationList = () => {
+  const { cities } = useSelector((state: ILocationItem[]) => state.cities)
 
   return (
     <GridContainer>
-      {locationList.map((item: ILocationItem) => (
-        <LocationListItem
-          key={item.location}
-          location={item.location}
-          country={item.country}
-          temperature={item.temperature}
-          icon={item.weatherIcon}
-          setLocationList={setLocationList}
-          onDelete={handleDelete}
-        />
+      {cities.map((city: ILocationItem) => (
+        <LocationListItem city={city} />
       ))}
     </GridContainer>
   )

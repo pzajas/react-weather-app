@@ -5,6 +5,8 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { fetchInitialCityWeatherData } from '@helpers/fetchInitialCityWeatherData'
 import styled from 'styled-components'
 import { LocationData } from 'typescript/interfaces'
+import { useDispatch } from 'react-redux'
+import { addCity } from '@redux/features/citiesSlice'
 
 interface FormData {
   city: string
@@ -16,12 +18,14 @@ interface FetchDataFormProps {
 
 export const FetchDataForm: React.FC<FetchDataFormProps> = ({ setLocationList }) => {
   const { control, handleSubmit, reset } = useForm<FormData>()
+  const dispatch = useDispatch()
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     const city = formData.city
     try {
       const newLocationData: LocationData = await fetchInitialCityWeatherData(city)
       setLocationList((prevList) => [...prevList, newLocationData])
+      dispatch(addCity(newLocationData))
       reset()
     } catch (error) {
       console.log(error)
