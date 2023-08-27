@@ -12,10 +12,17 @@ export const App = () => {
       <WeatherNavbar>
         <FetchDataForm setLocationList={setLocationList} />
       </WeatherNavbar>
-      <LocationList locationList={locationList} />
+      <LocationListContainer>
+        <LocationList locationList={locationList} />
+      </LocationListContainer>
     </GradientBackground>
   )
 }
+
+const LocationListContainer = styled.div`
+  max-height: calc(100vh - 100px); /* Adjust the value as needed */
+  overflow: auto;
+`
 
 const GradientBackground = styled.div`
   width: 100%;

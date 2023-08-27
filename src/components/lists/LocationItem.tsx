@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { styled } from 'styled-components'
+import styled, { css } from 'styled-components'
 
 interface ILocationListItem {
   location: string
@@ -9,31 +9,39 @@ interface ILocationListItem {
 }
 
 const LocationListItem = ({ location, country, temperature, icon }: ILocationListItem) => {
-  console.log(icon)
   return (
-    <Link to={`/contacts/${location}`}>
+    <StyledLink to={`/contacts/${location}`}>
       <StyledWeatherDataList>
         <StyledWeatherDataContainer>
           <StyledWeatherDataWrapper>
             {temperature}&#176;
-            <StyledWeatherIcon src={icon} alt="Weather Icon" />
+            <StyledWeatherIcon src={icon} alt={`Weather in ${location}`} />
           </StyledWeatherDataWrapper>
-          <StyledLocationDataWrapper>
-            <div style={{ fontSize: '16px' }}>{location}</div>
-            <div style={{ fontSize: '12px', color: 'lightgrey' }}>{country}</div>
-          </StyledLocationDataWrapper>
+          <StyledLocationData>
+            <StyledLocationText>{location}</StyledLocationText>
+            <StyledCountryText>{country}</StyledCountryText>
+          </StyledLocationData>
         </StyledWeatherDataContainer>
       </StyledWeatherDataList>
-    </Link>
+    </StyledLink>
   )
 }
 
 export default LocationListItem
 
+const commonTextStyle = css`
+  font-family: 'Poppins';
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`
+
 const StyledWeatherDataList = styled.li`
   display: flex;
   flex-wrap: wrap;
-  font-family: 'Poppins';
+  ${commonTextStyle}
 `
 
 const StyledWeatherDataContainer = styled.div`
@@ -53,12 +61,23 @@ const StyledWeatherDataWrapper = styled.div`
   align-items: center;
   margin-bottom: 2rem;
   font-size: 2rem;
+  font-weight: 500;
 `
 
-const StyledLocationDataWrapper = styled.div`
+const StyledLocationData = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+  ${commonTextStyle}
+`
+
+const StyledLocationText = styled.div`
+  font-size: 2rem;
+`
+
+const StyledCountryText = styled.div`
+  font-size: 12px;
+  color: lightgrey;
 `
 
 const StyledWeatherIcon = styled.img`
