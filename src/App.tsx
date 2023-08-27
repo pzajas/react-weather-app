@@ -20,7 +20,7 @@ export const App = () => {
 }
 
 const LocationListContainer = styled.div`
-  max-height: calc(100vh - 100px); /* Adjust the value as needed */
+  max-height: calc(100vh - 100px);
   overflow: auto;
 `
 

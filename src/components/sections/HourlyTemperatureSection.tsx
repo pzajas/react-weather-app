@@ -1,26 +1,13 @@
-import axios from 'axios'
 import { styled } from 'styled-components'
 import { useEffect, useState, useRef } from 'react'
 
-const HourlyTemperatureSection = ({ location }) => {
+export const HourlyTemperatureSection = ({ weatherForecast }) => {
   const [hourlyTempData, setHourlyTempData] = useState([])
   const nowRef = useRef(null)
 
   useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const response = await axios.get(
-          `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${location}`
-        )
-
-        setHourlyTempData(response?.data?.forecast?.forecastday[0]?.hour)
-      } catch (error) {
-        console.error('Error fetching weather data:', error)
-      }
-    }
-
-    fetchWeather()
-  }, [location])
+    setHourlyTempData(weatherForecast?.hour)
+  }, [weatherForecast])
 
   const currentHour = new Date().getHours()
 
@@ -86,7 +73,6 @@ const StyledHourlyTemperatureItem = styled.div`
   justify-content: space-between;
   width: 3rem;
   height: 4rem;
-  /* background-color: ${(props) => (props.isNow ? '#b37700' : 'transparent')}; */
   color: ${(props) => (props.isNow ? 'gold' : 'white')};
 
   p {
@@ -97,5 +83,3 @@ const StyledHourlyTemperatureItem = styled.div`
     font-size: 1.5rem;
   }
 `
-
-export default HourlyTemperatureSection

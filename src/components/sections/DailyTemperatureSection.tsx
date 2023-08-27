@@ -2,7 +2,7 @@ import { styled } from 'styled-components'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-const DailyTemperatureSection = ({ location }) => {
+export const DailyTemperatureSection = ({ location }) => {
   const [dailyWeatherData, setDailyWeatherData] = useState()
   const icon = dailyWeatherData?.current?.condition.icon
 
@@ -43,8 +43,6 @@ const DailyTemperatureSection = ({ location }) => {
     </StyledDailyTemperatureSection>
   )
 }
-
-export default DailyTemperatureSection
 
 const StyledDailyTemperatureSection = styled.div`
   width: 100%;
