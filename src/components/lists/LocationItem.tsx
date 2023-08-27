@@ -8,22 +8,28 @@ interface ILocationListItem {
   icon: any
 }
 
-export const LocationListItem = ({ location, country, temperature, icon }: ILocationListItem) => {
+export const LocationListItem = ({ location, country, temperature, icon, onDelete }: ILocationListItem) => {
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(location) // Pass the location to the onDelete function
+    }
+  }
   return (
-    <StyledLink to={`/contacts/${location}`}>
-      <StyledWeatherDataList>
-        <StyledWeatherDataContainer>
-          <StyledWeatherDataWrapper>
-            {temperature}&#176;
-            <StyledWeatherIcon src={icon} alt={`Weather in ${location}`} />
-          </StyledWeatherDataWrapper>
-          <StyledLocationData>
+    <StyledWeatherDataList>
+      <StyledWeatherDataContainer>
+        <StyledWeatherDataWrapper>
+          {temperature}&#176;
+          <StyledWeatherIcon src={icon} alt={`Weather in ${location}`} />
+        </StyledWeatherDataWrapper>
+        <StyledLocationData>
+          <StyledLink to={`/contacts/${location}`}>
             <StyledLocationText>{location}</StyledLocationText>
             <StyledCountryText>{country}</StyledCountryText>
-          </StyledLocationData>
-        </StyledWeatherDataContainer>
-      </StyledWeatherDataList>
-    </StyledLink>
+          </StyledLink>
+        </StyledLocationData>
+        <StyledDeleteButton onClick={handleDelete}>Delete</StyledDeleteButton>
+      </StyledWeatherDataContainer>
+    </StyledWeatherDataList>
   )
 }
 
@@ -81,4 +87,14 @@ const StyledCountryText = styled.div`
 const StyledWeatherIcon = styled.img`
   width: 4rem;
   height: 4rem;
+`
+
+const StyledDeleteButton = styled.button`
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-top: 1rem;
 `

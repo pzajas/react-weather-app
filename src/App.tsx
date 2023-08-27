@@ -14,7 +14,7 @@ export const App = () => {
         <FetchDataForm setLocationList={setLocationList} />
       </WeatherNavbar>
       <LocationListContainer>
-        <LocationList locationList={locationList} />
+        <LocationList locationList={locationList} setLocationList={setLocationList} />
       </LocationListContainer>
     </GradientBackground>
   )

@@ -8,8 +8,11 @@ interface ILocationItem {
   weatherIcon: string
 }
 
-export const LocationList = ({ locationList }: { locationList: ILocationItem[] }) => {
-  console.log(locationList)
+export const LocationList = ({ locationList, setLocationList }: { locationList: ILocationItem[] }) => {
+  const handleDelete = (locationToDelete: string) => {
+    const updatedList = locationList.filter((item) => item.location !== locationToDelete)
+    setLocationList(updatedList)
+  }
 
   return (
     <GridContainer>
@@ -20,6 +23,8 @@ export const LocationList = ({ locationList }: { locationList: ILocationItem[] }
           country={item.country}
           temperature={item.temperature}
           icon={item.weatherIcon}
+          setLocationList={setLocationList}
+          onDelete={handleDelete}
         />
       ))}
     </GridContainer>
