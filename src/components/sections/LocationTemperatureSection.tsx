@@ -3,7 +3,9 @@ import { PiCaretUpBold, PiCaretDownBold } from 'react-icons/pi'
 import { BiSun } from 'react-icons/bi'
 import { TemperatureText } from '@components/texts/TemperatureText'
 
-export const TemperatureSection = ({ weatherLocation, weatherCurrent, weatherForecast }) => {
+export const TemperatureSection = ({ weatherLocation, weatherCurrent, weatherForecast }: any) => {
+  console.log(weatherForecast)
+
   return (
     <StyledTemperatureContainer>
       <StyledLocationName>{weatherLocation?.name}</StyledLocationName>

@@ -7,7 +7,7 @@ import { DailyTemperatureSection } from '@components/sections/DailyTemperatureSe
 import { WeatherConditions } from '@components/sections/WeatherConditions'
 import { WeatherNavbar } from '@components/navbars/WeatherNavbar'
 import { TemperatureText } from '@components/texts/TemperatureText'
-import { CreateDate } from '@helpers/CreateDate'
+import { CreateDate } from '../helpers/createDate'
 import { TemperatureSection } from '@components/sections/LocationTemperatureSection'
 import { ICityWeatherData } from 'typescript/interfaces'
 
