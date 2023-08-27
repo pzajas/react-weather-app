@@ -1,31 +1,29 @@
+import { WeatherConditionCard } from '@components/cards/WeatherConditionCard'
 import { styled } from 'styled-components'
 
 export const WeatherConditions = ({ cityWeatherData }) => {
-  const WeatherConditionCard = ({ title, content }) => {
-    return (
-      <GridItem>
-        <p>{title}</p>
-        <div>{content}</div>
-      </GridItem>
-    )
-  }
-
   const sunriseTime = cityWeatherData?.forecast?.forecastday[0]?.astro.sunrise
   const sunsetTime = cityWeatherData?.forecast?.forecastday[0]?.astro.sunset
   const precipitation = cityWeatherData?.forecast?.forecastday[0]?.day.daily_chance_of_rain
   const humidity = cityWeatherData?.forecast?.forecastday[0]?.day.avghumidity
-  const wind = cityWeatherData?.forecast?.forecastday[0]?.day.maxwind_kph
-  const pressure = cityWeatherData?.forecast?.forecastday[0]?.hour[0].pressure_mb
+  const wind = cityWeatherData?.current?.wind_kph
+  const pressure = cityWeatherData?.current.pressure_mb
+
+  const weatherConditions = [
+    { title: 'Sunrise', data: sunriseTime },
+    { title: 'Sunset', data: sunsetTime },
+    { title: 'Precipitation', data: `${precipitation} %` },
+    { title: 'Humidity', data: `${humidity} %` },
+    { title: 'Wind', data: `${wind} KM/H` },
+    { title: 'Pressure', data: `${pressure} hPA` },
+  ]
 
   return (
     <StyledWeatherConditionsContainer>
       <GridContainer>
-        <WeatherConditionCard title="Sunrise" content={sunriseTime} />
-        <WeatherConditionCard title="Sunset" content={sunsetTime} />
-        <WeatherConditionCard title="Precipitation" content={`${precipitation} %`} />
-        <WeatherConditionCard title="Humidity" content={`${humidity} %`} />
-        <WeatherConditionCard title="Wind" content={`${wind} KM/H`} />
-        <WeatherConditionCard title="Pressure" content={`${pressure} hPA`} />
+        {weatherConditions.map((condition, index) => (
+          <WeatherConditionCard key={index} title={condition.title} content={condition.data} />
+        ))}
       </GridContainer>
     </StyledWeatherConditionsContainer>
   )
@@ -42,19 +40,4 @@ const GridContainer = styled.div`
   grid-template-rows: repeat(3, 1fr);
   gap: 1rem;
   padding: 2rem;
-`
-
-const GridItem = styled.div`
-  padding: 1rem;
-  text-align: center;
-
-  p {
-    font-size: 1rem;
-    color: #fcf193;
-    margin-bottom: 1rem;
-  }
-
-  div {
-    font-size: 1.2rem;
-  }
 `

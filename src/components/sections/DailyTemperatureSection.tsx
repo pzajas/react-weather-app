@@ -4,16 +4,14 @@ import axios from 'axios'
 
 export const DailyTemperatureSection = ({ location }) => {
   const [dailyWeatherData, setDailyWeatherData] = useState()
-  const icon = dailyWeatherData?.current?.condition.icon
 
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-  const weatherData = dailyWeatherData?.forecast?.forecastday[0].day
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         const response = await axios.get(
-          `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${location}`
+          `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${location}&days=8`
         )
 
         setDailyWeatherData(response?.data)
@@ -25,18 +23,27 @@ export const DailyTemperatureSection = ({ location }) => {
     fetchWeather()
   }, [location])
 
-  console.log(icon)
   return (
     <StyledDailyTemperatureSection>
-      {daysOfWeek.map((day) => (
+      {daysOfWeek.map((day, index) => (
         <StyledSingleDayTemperature key={day}>
           <p>{day}</p>
-          <img src={icon} alt="Weather Icon" />
+          <StyledIconAndRainPercent>
+            <img src={dailyWeatherData?.forecast?.forecastday[index + 1]?.day?.condition?.icon} alt="Weather Icon" />
+            <div>
+              {dailyWeatherData?.forecast?.forecastday[index + 1]?.day?.condition?.text.includes('rain')
+                ? `${dailyWeatherData?.forecast?.forecastday[index + 1]?.day?.daily_chance_of_rain} %`
+                : null}
+            </div>
+          </StyledIconAndRainPercent>
+
           <StyledTemperatureContainer>
             <div className="temperature" style={{ fontWeight: 'bold' }}>
-              {parseInt(dailyWeatherData?.current?.temp_c)}
+              {parseInt(dailyWeatherData?.forecast?.forecastday[index]?.day?.avgtemp_c)}
             </div>
-            <div className="temperature">{parseInt(weatherData?.mintemp_c)}</div>
+            <div className="temperature">
+              {parseInt(dailyWeatherData?.forecast?.forecastday[index]?.day?.mintemp_c)}
+            </div>
           </StyledTemperatureContainer>
         </StyledSingleDayTemperature>
       ))}
@@ -52,6 +59,7 @@ const StyledDailyTemperatureSection = styled.div`
 
 const StyledSingleDayTemperature = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
@@ -61,17 +69,30 @@ const StyledSingleDayTemperature = styled.div`
     font-size: 1.5rem;
     width: 10rem;
   }
+`
+
+const StyledIconAndRainPercent = styled.div`
+  width: 10rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
 
   img {
-    width: 3rem;
     height: 3rem;
+  }
+
+  div {
+    font-size: 1.2rem;
   }
 `
 
 const StyledTemperatureContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.5rem;
+  width: 4rem;
 
   .temperature {
     display: flex;

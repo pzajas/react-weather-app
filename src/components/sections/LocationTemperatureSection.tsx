@@ -68,7 +68,7 @@ const SunIconContainer = styled.div`
   background-color: #f0a830;
   border-radius: 200px;
   padding: 4rem;
-  transform: translateX(45%);
+  transform: translateX(40%);
 `
 
 const SunIconWrapper = styled(BiSun)`
