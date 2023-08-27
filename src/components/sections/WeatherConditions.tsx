@@ -1,6 +1,6 @@
 import { styled } from 'styled-components'
 
-const WeatherConditions = ({ cityWeatherData }) => {
+export const WeatherConditions = ({ cityWeatherData }) => {
   const WeatherConditionCard = ({ title, content }) => {
     return (
       <GridItem>
@@ -30,8 +30,6 @@ const WeatherConditions = ({ cityWeatherData }) => {
     </StyledWeatherConditionsContainer>
   )
 }
-
-export default WeatherConditions
 
 const StyledWeatherConditionsContainer = styled.div`
   height: auto;
