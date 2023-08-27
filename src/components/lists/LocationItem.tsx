@@ -1,33 +1,37 @@
+import { deleteCity } from '@redux/features/citiesSlice'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import styled, { css } from 'styled-components'
+import { styled, css } from 'styled-components'
 
 interface ILocationListItem {
   location: string
   country: string
   temperature: number
-  icon: any
+  weatherIcon: any
 }
 
-export const LocationListItem = ({ location, country, temperature, icon, onDelete }: ILocationListItem) => {
+export const LocationListItem = ({ city }: { city: ILocationListItem }) => {
+  const dispatch = useDispatch()
+
   const handleDelete = () => {
-    if (onDelete) {
-      onDelete(location) // Pass the location to the onDelete function
-    }
+    dispatch(deleteCity(city.location))
   }
+
   return (
     <StyledWeatherDataList>
       <StyledWeatherDataContainer>
-        <StyledWeatherDataWrapper>
-          {temperature}&#176;
-          <StyledWeatherIcon src={icon} alt={`Weather in ${location}`} />
-        </StyledWeatherDataWrapper>
-        <StyledLocationData>
-          <StyledLink to={`/contacts/${location}`}>
-            <StyledLocationText>{location}</StyledLocationText>
-            <StyledCountryText>{country}</StyledCountryText>
-          </StyledLink>
-        </StyledLocationData>
-        <StyledDeleteButton onClick={handleDelete}>Delete</StyledDeleteButton>
+        <StyledLink to={`/contacts/${city.location}`}>
+          <StyledWeatherDataWrapper>
+            {city.temperature}&#176;
+            <StyledWeatherIcon src={city.weatherIcon} alt={`Weather in ${city.location}`} />
+          </StyledWeatherDataWrapper>
+
+          <StyledLocationData>
+            <StyledLocationText>{city.location}</StyledLocationText>
+            <StyledCountryText>{city.country}</StyledCountryText>
+          </StyledLocationData>
+        </StyledLink>
+        <StyledDeleteButton onClick={handleDelete}>-</StyledDeleteButton>
       </StyledWeatherDataContainer>
     </StyledWeatherDataList>
   )
@@ -52,6 +56,7 @@ const StyledWeatherDataContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
   width: 40vw;
   height: 16vh;
   padding: 1.5rem;
@@ -93,8 +98,14 @@ const StyledDeleteButton = styled.button`
   background-color: #e74c3c;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  margin-top: 1rem;
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
 `

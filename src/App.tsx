@@ -6,7 +6,7 @@ import { styled } from 'styled-components'
 import { LocationData } from 'typescript/interfaces'
 
 export const App = () => {
-  const [locationList, setLocationList] = useState<LocationData[]>([])
+  const [, setLocationList] = useState<LocationData[]>([])
 
   return (
     <GradientBackground>
@@ -14,7 +14,7 @@ export const App = () => {
         <FetchDataForm setLocationList={setLocationList} />
       </WeatherNavbar>
       <LocationListContainer>
-        <LocationList locationList={locationList} setLocationList={setLocationList} />
+        <LocationList />
       </LocationListContainer>
     </GradientBackground>
   )
