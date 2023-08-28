@@ -21,4 +21,8 @@ const WeatherNavbarContainer = styled.div`
   justify-content: space-between;
   height: 10vh;
   padding: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 3rem;
+  }
 `

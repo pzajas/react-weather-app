@@ -1,12 +1,11 @@
-import React from 'react'
 import { FetchDataButton } from '@components/buttons/FetchDataButton'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { fetchInitialCityWeatherData } from '@helpers/fetchInitialCityWeatherData'
-import styled from 'styled-components'
-import { LocationData } from 'typescript/interfaces'
+import { fetchCityWeatherData } from '@helpers/fetchCityWeatherData'
+import { styled } from 'styled-components'
 import { useDispatch } from 'react-redux'
 import { addCity } from '@redux/features/citiesSlice'
+import { LocationData } from 'typescript/interfaces'
 
 interface FormData {
   city: string
@@ -23,7 +22,7 @@ export const FetchDataForm: React.FC<FetchDataFormProps> = ({ setLocationList })
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     const city = formData.city
     try {
-      const newLocationData: LocationData = await fetchInitialCityWeatherData(city)
+      const { newLocationData }: { newLocationData: LocationData } = await fetchCityWeatherData(city)
       setLocationList((prevList) => [...prevList, newLocationData])
       dispatch(addCity(newLocationData))
       reset()
@@ -35,7 +34,7 @@ export const FetchDataForm: React.FC<FetchDataFormProps> = ({ setLocationList })
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Controller
-        name="city" // Change to 'city'
+        name="city"
         control={control}
         defaultValue=""
         render={({ field }) => <Input type="text" placeholder="Add a city" {...field} />}
