@@ -10,12 +10,12 @@ interface ILocationItem {
 }
 
 export const LocationList = () => {
-  const { cities } = useSelector((state: ILocationItem[]) => state.cities)
+  const { cities }: { cities: any } = useSelector((state: any) => state.cities) //remove the any type
 
   return (
     <GridContainer>
       {cities.map((city: ILocationItem) => (
-        <LocationListItem city={city} />
+        <LocationListItem city={city} key={city.location} />
       ))}
     </GridContainer>
   )

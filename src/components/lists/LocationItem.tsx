@@ -120,9 +120,4 @@ const StyledDeleteButton = styled.button`
   position: absolute;
   bottom: 1.5rem;
   right: 1.5rem;
-
-  /* @media (max-width: 768px) {
-    bottom: 0.5rem;
-    right: 0.5rem;
-  } */
 `
