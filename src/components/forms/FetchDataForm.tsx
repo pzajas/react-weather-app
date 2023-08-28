@@ -3,9 +3,8 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { fetchCityWeatherData } from '@helpers/fetchCityWeatherData'
 import { styled } from 'styled-components'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addCity } from '@redux/features/citiesSlice'
-import { LocationData } from 'typescript/interfaces'
 
 interface FormData {
   city: string
@@ -15,19 +14,34 @@ interface FetchDataFormProps {
   setLocationList: React.Dispatch<React.SetStateAction<LocationData[]>>
 }
 
+interface LocationData {
+  location: string
+  country: string
+  temperature: number
+  weatherIcon: string
+}
+
 export const FetchDataForm: React.FC<FetchDataFormProps> = ({ setLocationList }) => {
   const { control, handleSubmit, reset } = useForm<FormData>()
+  const { cities } = useSelector((state: any) => state.cities)
   const dispatch = useDispatch()
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     const city = formData.city
-    try {
-      const { newLocationData }: { newLocationData: LocationData } = await fetchCityWeatherData(city)
-      setLocationList((prevList) => [...prevList, newLocationData])
-      dispatch(addCity(newLocationData))
-      reset()
-    } catch (error) {
-      console.log(error)
+    const cityExists = cities.some((existingCity: LocationData) => existingCity.location === city)
+
+    if (cityExists) {
+      alert(`${city} already exists in the city list.`)
+    } else {
+      try {
+        const { newLocationData }: { newLocationData: LocationData } = await fetchCityWeatherData(city)
+
+        setLocationList((prevList) => [...prevList, newLocationData])
+        dispatch(addCity(newLocationData))
+        reset()
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
