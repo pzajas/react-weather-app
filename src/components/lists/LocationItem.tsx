@@ -62,6 +62,18 @@ const StyledWeatherDataContainer = styled.div`
   padding: 1.5rem;
   border-radius: 1rem;
   background-color: #878fa4;
+
+  @media (max-width: 375px) and (max-width: 678px) {
+    width: 80vw;
+    height: 22vh;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    width: 25vw;
+    height: 18vh;
+    margin: 0 auto;
+  }
 `
 
 const StyledWeatherDataWrapper = styled.div`
@@ -108,4 +120,9 @@ const StyledDeleteButton = styled.button`
   position: absolute;
   bottom: 1.5rem;
   right: 1.5rem;
+
+  /* @media (max-width: 768px) {
+    bottom: 0.5rem;
+    right: 0.5rem;
+  } */
 `

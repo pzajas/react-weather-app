@@ -2,8 +2,6 @@ import { styled } from 'styled-components'
 import { ICityWeatherData } from 'typescript/interfaces'
 
 export const DailyTemperatureSection = ({ cityWeatherData }: { cityWeatherData: ICityWeatherData }) => {
-  console.log(cityWeatherData)
-
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
   return (
@@ -19,7 +17,6 @@ export const DailyTemperatureSection = ({ cityWeatherData }: { cityWeatherData: 
                 : null}
             </div>
           </StyledIconAndRainPercent>
-
           <StyledTemperatureContainer>
             <div className="temperature" style={{ fontWeight: 'bold' }}>
               {parseInt(cityWeatherData?.forecast?.forecastday[index]?.day?.maxtemp_c)}

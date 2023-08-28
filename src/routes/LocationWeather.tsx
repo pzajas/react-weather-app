@@ -10,6 +10,7 @@ import { TemperatureText } from '@components/texts/TemperatureText'
 import { CreateDate } from '../helpers/createDate'
 import { TemperatureSection } from '@components/sections/LocationTemperatureSection'
 import { ICityWeatherData } from 'typescript/interfaces'
+import { fetchCityWeatherData } from '@helpers/fetchCityWeatherData'
 
 export const LocationWeather = () => {
   const [cityWeatherData, setCityWeatherData] = useState<ICityWeatherData | undefined>(undefined)
@@ -17,17 +18,15 @@ export const LocationWeather = () => {
   const weatherCurrent = cityWeatherData?.current
   const weatherForecast = cityWeatherData?.forecast
 
-  const { location } = useParams()
+  const { location }: any = useParams()
   const date = new Date()
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const response = await axios.get(
-          `https://api.weatherapi.com/v1/forecast.json?key=4f223485bbd542168f1154529232608&q=${location}&days=8`
-        )
+        const { response } = await fetchCityWeatherData(location)
 
-        setCityWeatherData(response.data)
+        setCityWeatherData(response)
       } catch (error) {
         console.error('Error fetching weather data:', error)
       }

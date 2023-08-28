@@ -30,4 +30,12 @@ const GridContainer = styled.div`
   padding: 30px;
   justify-items: center;
   align-items: center;
+
+  @media (max-width: 375px) {
+    grid-template-columns: 2fr;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `
