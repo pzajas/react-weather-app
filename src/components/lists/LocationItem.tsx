@@ -107,17 +107,17 @@ const StyledWeatherIcon = styled.img`
 `
 
 const StyledDeleteButton = styled.button`
-  background-color: #e74c3c;
+  background-color: steelblue;
   color: white;
   border: none;
-  border-radius: 50%;
-  width: 2.5rem;
-  height: 2.5rem;
+  border-radius: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 0.5rem;
+  right: 0.5rem;
 `
