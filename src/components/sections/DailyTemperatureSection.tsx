@@ -45,7 +45,10 @@ const StyledSingleDayTemperature = styled.div`
 
   p {
     font-size: 1.5rem;
+    font-weight: 500;
     width: 10rem;
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.textDark};
   }
 `
 
@@ -62,6 +65,8 @@ const StyledIconAndRainPercent = styled.div`
 
   div {
     font-size: 1.2rem;
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.textLight};
   }
 `
 
@@ -76,5 +81,7 @@ const StyledTemperatureContainer = styled.div`
     display: flex;
     align-items: center;
     font-size: 1.2rem;
+    font-weight: 500;
+    color: ${(props) => props.theme.colors.textDark};
   }
 `

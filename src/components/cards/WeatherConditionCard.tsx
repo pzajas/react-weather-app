@@ -20,11 +20,14 @@ const GridItem = styled.div`
 
   p {
     font-size: 1rem;
-    color: #fcf193;
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.textLight};
     margin-bottom: 1rem;
   }
 
   div {
     font-size: 1.2rem;
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.textDark};
   }
 `

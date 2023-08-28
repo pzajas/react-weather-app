@@ -83,9 +83,12 @@ const StyledHourlyTemperatureItem = styled.div<{ isNow: boolean }>`
 
   p {
     font-size: 1rem;
+    color: ${(props) => props.theme.colors.textLight};
   }
 
   span {
     font-size: 1.5rem;
+    font-weight: 500;
+    color: ${(props) => props.theme.colors.textDark};
   }
 `
