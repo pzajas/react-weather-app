@@ -9,7 +9,7 @@ export const orangeTheme = {
 }
 
 export const blueTheme = {
-  background: 'linear-gradient(to bottom, #274aa3, #6591d6)',
+  background: 'linear-gradient(to top, #274aa3, #6591d6)',
   secondaryBackground: '#5670d6',
   colors: {
     white: '#fff',
