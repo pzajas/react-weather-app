@@ -32,7 +32,7 @@ export const WeatherConditions = ({ cityWeatherData }: { cityWeatherData: ICityW
 
 const StyledWeatherConditionsContainer = styled.div`
   height: auto;
-  background-color: #f7992d;
+  background-color: ${(props) => props.theme.secondaryBackground};
 `
 
 const GridContainer = styled.div`

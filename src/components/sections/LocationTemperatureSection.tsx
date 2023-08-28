@@ -47,6 +47,7 @@ const StyledLocationName = styled.div`
   font-size: 2rem;
   font-weight: 500;
   margin-bottom: 4rem;
+  color: ${(props) => props.theme.colors.textDark};
 `
 
 const StyledMinMaxTemperature = styled.div`
@@ -65,7 +66,7 @@ const SunIconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0a830;
+  background-color: ${(props) => props.theme.secondaryBackground};
   border-radius: 200px;
   padding: 4rem;
   transform: translateX(40%);
@@ -80,6 +81,7 @@ const SunIconWrapper = styled(BiSun)`
 const AtmoConditions = styled.div`
   font-size: 1.5rem;
   font-weight: 600;
+  color: ${(props) => props.theme.colors.textDark};
 `
 
 const TemperatureWrapper = styled.div`
@@ -102,4 +104,5 @@ const StyledWeatherFeeling = styled.div`
   flex-direction: column;
   gap: 1rem;
   font-size: 1.2rem;
+  color: ${(props) => props.theme.colors.textDark};
 `
