@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { FetchDataButton } from '@components/buttons/FetchDataButton'
 import { useForm, Controller, SubmitHandler } from 'react-hook-form'
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -22,6 +23,8 @@ interface LocationData {
 }
 
 export const FetchDataForm: React.FC<FetchDataFormProps> = ({ setLocationList }) => {
+  const [isInputFocused, setIsInputFocused] = useState(false)
+
   const { control, handleSubmit, reset } = useForm<FormData>()
   const { cities } = useSelector((state: any) => state.cities)
   const dispatch = useDispatch()
@@ -46,13 +49,29 @@ export const FetchDataForm: React.FC<FetchDataFormProps> = ({ setLocationList })
     }
   }
 
+  const handleFocusInput = () => {
+    setIsInputFocused((prevState) => !prevState)
+  }
+
+  const handleBlurInput = () => {
+    setIsInputFocused((prevState) => !prevState)
+  }
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name="city"
         control={control}
         defaultValue=""
-        render={({ field }) => <Input type="text" placeholder="Add a city" {...field} />}
+        render={({ field }) => (
+          <Input
+            type="text"
+            onFocus={handleFocusInput}
+            placeholder={isInputFocused ? '' : 'Add a city'}
+            {...field}
+            onBlur={handleBlurInput}
+          />
+        )}
       />
       <FetchDataButton icon={<NavbarPlusIcon size={30} />} />
     </Form>
