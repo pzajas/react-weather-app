@@ -39,8 +39,9 @@ export const FetchDataForm: React.FC<FetchDataFormProps> = ({ setLocationList })
         setLocationList((prevList) => [...prevList, newLocationData])
         dispatch(addCity(newLocationData))
         reset()
-      } catch (error) {
-        console.log(error)
+      } catch (error: any) {
+        const message = error?.response?.data?.error?.message.replace('q', 'city')
+        alert(message)
       }
     }
   }
